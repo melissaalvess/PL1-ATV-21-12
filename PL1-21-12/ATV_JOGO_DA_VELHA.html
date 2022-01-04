@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Jogo Da Velha</title>
+    <style type="text/css">
+        body {
+            background-color: black;
+        }
+
+        h1 {
+            font-size: 30pt;
+            height: 50px;
+            color:aliceblue;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .tabuleiro {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+
+    <script language="Javascript">
+
+        var tabuleiro, letra, ind, x, y;
+        tabuleiro = new Array();
+
+        for (ind = 0; ind < 3; ind++) {
+            tabuleiro[ind] = new Array(3);
+        }
+        for (x = 0; x < 3; x++) {
+            for (y = 0; y < 3; y++) {
+                tabuleiro[x][y] = 0;
+            }
+        }
+        letra = "X.jpeg";
+        var jogador = "";
+
+        function acao(i, lin, col) {
+            document.getElementById("id" + i).setAttribute("src", letra);
+            if (letra == "X.jpeg") {
+                jogador = "X";
+                tabuleiro[lin][col] = 1;
+                letra = "O.png";
+            }
+            else {
+                tabuleiro[lin][col] = -1;
+                letra = "X.jpeg";
+                jogador = "O";
+            }
+        }
+        function verificar() {
+
+            a = tabuleiro[0][0];
+            b = tabuleiro[0][1];
+            c = tabuleiro[0][2];
+            d = tabuleiro[1][0];
+            e = tabuleiro[1][1];
+            f = tabuleiro[1][2];
+            g = tabuleiro[2][0];
+            h = tabuleiro[2][1];
+            i = tabuleiro[2][2];
+
+            if (((a != 0) && (b != 0) && (c != 0) && (a == b) && (b == c)) ||
+                ((a != 0) && (e != 0) && (i != 0) && (a == e) && (e == i)) ||
+                ((a != 0) && (d != 0) && (g != 0) && (a == d) && (d == g)) ||
+                ((d != 0) && (e != 0) && (f != 0) && (d == e) && (e == f)) ||
+                ((g != 0) && (h != 0) && (i != 0) && (g == h) && (h == i)) ||
+                ((b != 0) && (e != 0) && (h != 0) && (b == e) && (e == h)) ||
+                ((c != 0) && (f != 0) && (i != 0) && (c == f) && (f == i)) ||
+                ((g != 0) && (e != 0) && (c != 0) && (g == e) && (e == c))) {
+                alert(" O jogador foi o Jogador " + jogador + ".");
+            }
+        }
+        function atualizar() {
+            window.location.reload();
+        }
+    </script>
+</head>
+
+<body>
+    <center>
+        <table class="tabela">
+            <h1>Jogo da Velha<h1>
+            <script language="Javascript">
+                var l, c, pos;
+                pos = 0;
+                for (l = 0; l < 3; l++) {
+                    document.write("<tr>");
+                    for (c = 0; c < 3; c++) {
+                        document.write("<td class='tabuleiro'>");
+                        document.write("<img  id ='id" + pos + "' width='80' height='85' " +
+                            "onclick='{acao(" + pos + "," + l + "," + c + ")};{verificar();}'>");
+                        document.write("</td>");
+                        pos++;
+                    }
+                    document.write("</tr>");
+                }
+            </script>
+        </table>
+
+        <form name=formJogodaVelha>
+            <input type="button" value="Reiniciar" 
+            style="background-color:white;color:black;font-weight:bold;width:150px;height:50px;" onClick="atualizar()">
+        </form>
+    </center>
+</body>
+
+</html>
